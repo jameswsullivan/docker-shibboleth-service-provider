@@ -1,0 +1,26 @@
+name: service-provider
+
+services:
+
+  service-provider:
+    container_name: service-provider
+    image: service-provider:latest
+    build:
+      context: .
+      args:
+        - UBUNTU_VERSION=26.10
+    environment:
+      DEBIAN_FRONTEND: "noninteractive"
+      LC_ALL: "en_US.UTF-8"
+      LANG: "en_US.UTF-8"
+    working_dir: /opt/shibboleth
+    networks:
+      - service-provider
+    volumes:
+      - ./configs:/opt/shibboleth
+    command: ["/opt/shibboleth/entrypoint.sh"]
+
+networks:
+  service-provider:
+    driver: bridge
+
